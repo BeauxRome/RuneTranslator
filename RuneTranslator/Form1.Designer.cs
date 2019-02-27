@@ -67,14 +67,13 @@
             
         }
         //Was added. Broken.
-        public string completeText = Form1.textBox1.Text;
-
-        
+        public string completeText = textBox1.Text;
 
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+
     }
 }
 
