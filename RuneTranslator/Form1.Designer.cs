@@ -10,7 +10,8 @@
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, 
+        /// false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -31,6 +32,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
+
             // 
             // textBox1
             // 
@@ -38,6 +40,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(219, 20);
             this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "";
             // 
             // label1
             // 
@@ -61,7 +64,12 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+            
         }
+        //Was added. Broken.
+        public string completeText = Form1.textBox1.Text;
+
+        
 
         #endregion
 
