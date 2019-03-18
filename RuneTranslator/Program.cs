@@ -17,11 +17,7 @@ namespace RuneTranslator
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-
-
-            //was added. Is broken.
             
-            //end of broken.
         }
     }
 }
