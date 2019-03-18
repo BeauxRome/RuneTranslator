@@ -148,6 +148,22 @@ namespace RuneTranslator
             {
                 return Image.FromFile(@"..\..\Resources\Number5.png");
             }
+            else if (symbol == '6')
+            {
+                return Image.FromFile(@"..\..\Resources\Number6.png");
+            }
+            else if (symbol == '7')
+            {
+                return Image.FromFile(@"..\..\Resources\Number7.png");
+            }
+            else if (symbol == '8')
+            {
+                return Image.FromFile(@"..\..\Resources\Number8.png");
+            }
+            else if (symbol == '9')
+            {
+                return Image.FromFile(@"..\..\Resources\Number9.png");
+            }
 
 
             else if (symbol == ' ')
