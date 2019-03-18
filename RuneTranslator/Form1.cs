@@ -178,6 +178,10 @@ namespace RuneTranslator
             {
                 return Image.FromFile(@"..\..\Resources\SymbolQuestion.png");
             }
+            else if (symbol == '!')
+            {
+                return Image.FromFile(@"..\..\Resources\SymbolExclaim.png");
+            }
 
 
             else
