@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
+using System.IO;
 
 namespace RuneTranslator
 {
@@ -16,8 +17,38 @@ namespace RuneTranslator
         {
             InitializeComponent();
             formFunc = new FormFunc();
+            MakeBoxObjects();
         }
         
+        void MakeBoxObjects()
+        {
+            var Files = Directory.GetFiles(@"..\..\Resources");
+
+            var runeTrans = new List<Box>();
+
+            foreach (var file in Files)
+            {
+                
+                var noext = file.Replace(".png", string.Empty);
+                var letter = noext[noext.Length - 1];
+                
+                runeTrans.Add(new Box()
+                {
+                    picBox = new PictureBox
+                    {
+                        ImageLocation = file.ToString(),
+                    },
+
+                    symbol = letter,
+                });
+            }      
+            
+            for(int i = 0; i < flowLayoutPanel1.Controls.Count-1; i++)
+            {
+                var pb = flowLayoutPanel1.Controls[i] as PictureBox;
+                pb.ImageLocation = runeTrans[i].picBox.ImageLocation;
+            }
+        }
         
 
 
@@ -25,62 +56,89 @@ namespace RuneTranslator
         {
             if(e.KeyData == Keys.Enter)
             {
-                List<Boxes> fullImageValue = new List<Boxes>(39);
-                int i = 1;
-                foreach (Boxes Box in fullImageValue)
-                {
-                    Box.value = i;
-                    i++;
-                }
+                var fullBoxVal = new List<Box>();
 
-                List<PictureBox> pictureBoxes = new List<PictureBox>{pictureBox1, pictureBox2,
-                    pictureBox3, pictureBox4, pictureBox5, pictureBox6, pictureBox7, pictureBox8,
-                    pictureBox9, pictureBox10, pictureBox11, pictureBox12, pictureBox13,
-                    pictureBox14, pictureBox15, pictureBox16, pictureBox17, pictureBox18,
-                    pictureBox19, pictureBox20, pictureBox21, pictureBox22, pictureBox23,
-                    pictureBox24, pictureBox25, pictureBox26, pictureBox27, pictureBox28,
-                    pictureBox29, pictureBox30, pictureBox31, pictureBox32, pictureBox33,
-                    pictureBox34, pictureBox35, pictureBox36, pictureBox37, pictureBox38,
-                    pictureBox39 };
-                int j = 1;
-                foreach (PictureBox picBox in pictureBoxes)
+                ////////////////////////////////////////////////////////////////////////////////
+
+                var Files = Directory.GetFiles(@"..\..\Resources");
+
+                var runeTrans = new List<Box>();
+
+                foreach (var file in Files)
                 {
-                    foreach (Boxes box in fullImageValue)
+                    runeTrans.Add(new Box()
                     {
-                        if (box.value == j)
+                        picBox = new PictureBox
                         {
-                            box.pictureBox = picBox;
-                        }
-                    }
+                            ImageLocation = file.ToString(),
+                        },
+
+                        symbol = 'h',
+                    });
                 }
 
-                textBox2.Text = textBox1.Text;
 
-                var runeSwitch = textBox1.Text.ToString();
-                int k = 1;
-                foreach (char symbol in runeSwitch)
-                {
-                    foreach (Boxes box in fullImageValue)
-                    {
-                        if (box.value <= 39 && box.value == k)
-                        {
-                            box.symbol = symbol;
-                        }
-                    }
-                }
-                
-                formFunc.CharTranslation(serializer, textBox2, textBox1, fullImageValue);
-
-                //int l = 1;
-                //foreach (Boxes box in fullImageValue)
+                //int i = 1;
+                //foreach (Boxes Box in fullBoxVal)
                 //{
-                //    foreach (PictureBox picBox in pictureBoxes)
+                //    Box.value = i;
+                //    i++;
+                //}
+
+                //PictureBox[] pictureBoxes = {pictureBox1, pictureBox2,
+                //    pictureBox3, pictureBox4, pictureBox5, pictureBox6, pictureBox7, 
+                //    pictureBox8,
+                //    pictureBox9, pictureBox10, pictureBox11, pictureBox12, pictureBox13,
+                //    pictureBox14, pictureBox15, pictureBox16, pictureBox17, pictureBox18,
+                //    pictureBox19, pictureBox20, pictureBox21, pictureBox22, pictureBox23,
+                //    pictureBox24, pictureBox25, pictureBox26, pictureBox27, pictureBox28,
+                //    pictureBox29, pictureBox30, pictureBox31, pictureBox32, pictureBox33,
+                //    pictureBox34, pictureBox35, pictureBox36, pictureBox37, pictureBox38,
+                //    pictureBox39};
+                //int j = 1;
+                //foreach (PictureBox picBox in pictureBoxes)
+                //{
+                //    foreach (Boxes box in fullBoxVal)
                 //    {
-                //        if (box.value == l)
+                //        if (box.value == j)
                 //        {
-                //            picBox = box.pictureBox;
+                //            box.pictureBox = picBox;
+                //            j++;
                 //        }
                 //    }
+                //}
+
+                //textBox2.Text = textBox1.Text;
+
+                //var runeSwitch = textBox1.Text.ToString();
+                //int k = 1;
+                //foreach (char symbol in runeSwitch)
+                //{
+                //    foreach (Boxes box in fullBoxVal)
+                //    {
+                //        if (box.value <= 39 && box.value == k)
+                //        {
+                //            box.symbol = symbol;
+                //            k++;
+                //        }
+                //    }
+                //}
+                
+
+                //formFunc.CharTranslation(serializer, textBox2, textBox1, fullBoxVal);
+
+                //PictureBox[] arrayImageList = pictureBoxes.ToArray();
+
+                //int l = 1;
+                //foreach (Boxes box in fullBoxVal)
+                //{
+                //    //foreach (PictureBox picBox in pictureBoxes)
+                //    //{
+                //        if (box.value == l)
+                //        {
+                //            arrayImageList[l] = box.pictureBox; 
+                //        }
+                //    //}
                 //}
             }
         }

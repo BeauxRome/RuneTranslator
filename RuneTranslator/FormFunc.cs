@@ -228,13 +228,13 @@ namespace RuneTranslator
         /// //////////////////////////////////////////////////////////////
         
         public void CharTranslation(XmlSerializer serializer, TextBox textBox2, TextBox textBox1,
-            List<Boxes> boxes)
+            List<Box> boxes)
         {
 
-            foreach (Boxes box in boxes)
+            foreach (Box box in boxes)
             {
                 
-                box.pictureBox.Image = Translator(box.symbol);
+                box.picBox.Image = Translator(box.symbol);
                 
             }
         }
