@@ -51,7 +51,7 @@ namespace RuneTranslator
 
         //////////////////////////////////////////////
 
-        private Image Translator(char symbol)
+        public Image Translator(char symbol)
         {
             if (symbol == 'a' || symbol == 'A')
             {
@@ -227,16 +227,6 @@ namespace RuneTranslator
         }
         /// //////////////////////////////////////////////////////////////
         
-        public void CharTranslation(XmlSerializer serializer, TextBox textBox2, TextBox textBox1,
-            List<Box> boxes)
-        {
-
-            foreach (Box box in boxes)
-            {
-                
-                box.picBox.Image = Translator(box.symbol);
-                
-            }
-        }
+        
     }
 }

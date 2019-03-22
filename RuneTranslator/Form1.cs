@@ -17,37 +17,68 @@ namespace RuneTranslator
         {
             InitializeComponent();
             formFunc = new FormFunc();
-            MakeBoxObjects();
+            
         }
         
-        void MakeBoxObjects()
+        void MakeBoxObjects(string Text)
         {
-            var Files = Directory.GetFiles(@"..\..\Resources");
+            //var Files = Directory.GetFiles(@"..\..\Resources");
+
+            //var runeTrans = new List<Box>();
+
+            //foreach (var file in Files)
+            //{
+
+            //    var noext = file.Replace(".png", string.Empty);
+            //    var letter = noext[noext.Length - 1];
+
+            //    runeTrans.Add(new Box()
+            //    {
+            //        picBox = new PictureBox
+            //        {
+            //            ImageLocation = file.ToString(),
+            //        },
+
+            //        symbol = letter,
+            //    });
+            //}      
+
+            //for(int i = 0; i < flowLayoutPanel1.Controls.Count; i++)
+            //{
+            //    var pb = flowLayoutPanel1.Controls[i] as PictureBox;
+            //    pb.ImageLocation = runeTrans[i].picBox.ImageLocation;
+            //}
+
+            //////////////////////////////////////////////////////
 
             var runeTrans = new List<Box>();
 
-            foreach (var file in Files)
+            foreach (char letter in Text)
             {
-                
-                var noext = file.Replace(".png", string.Empty);
-                var letter = noext[noext.Length - 1];
-                
                 runeTrans.Add(new Box()
                 {
                     picBox = new PictureBox
                     {
-                        ImageLocation = file.ToString(),
+                        Image = formFunc.Translator(letter),
                     },
-
-                    symbol = letter,
+                    symbol = letter
                 });
-            }      
-            
-            for(int i = 0; i < flowLayoutPanel1.Controls.Count-1; i++)
+            }
+
+            foreach(var reset in flowLayoutPanel1.Controls)
+            {
+                var pb = reset as PictureBox;
+                pb.Image = Image.FromFile(@"..\..\Resources\SymbolUnknown.png"); ;
+
+            }
+
+            for (int i = 0; i < flowLayoutPanel1.Controls.Count && i < Text.Length; i++)
             {
                 var pb = flowLayoutPanel1.Controls[i] as PictureBox;
-                pb.ImageLocation = runeTrans[i].picBox.ImageLocation;
+                pb.Image = runeTrans[i].picBox.Image;
+                
             }
+            textBox2.Text = Text;
         }
         
 
@@ -56,26 +87,11 @@ namespace RuneTranslator
         {
             if(e.KeyData == Keys.Enter)
             {
-                var fullBoxVal = new List<Box>();
+                //var fullBoxVal = new List<Box>();
 
                 ////////////////////////////////////////////////////////////////////////////////
 
-                var Files = Directory.GetFiles(@"..\..\Resources");
-
-                var runeTrans = new List<Box>();
-
-                foreach (var file in Files)
-                {
-                    runeTrans.Add(new Box()
-                    {
-                        picBox = new PictureBox
-                        {
-                            ImageLocation = file.ToString(),
-                        },
-
-                        symbol = 'h',
-                    });
-                }
+                MakeBoxObjects(textBox1.Text);
 
 
                 //int i = 1;
@@ -123,7 +139,7 @@ namespace RuneTranslator
                 //        }
                 //    }
                 //}
-                
+
 
                 //formFunc.CharTranslation(serializer, textBox2, textBox1, fullBoxVal);
 
