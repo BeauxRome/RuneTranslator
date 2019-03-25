@@ -9,48 +9,42 @@ namespace RuneTranslator
     public partial class Form1 : Form
     {
         System.Xml.Serialization.XmlSerializer serializer =
-                new System.Xml.Serialization.XmlSerializer(typeof(string));
-
+            new System.Xml.Serialization.
+                XmlSerializer(typeof(string));
+        /// <summary>
+        /// This holds most of the Load and save stuff, along with the translation into runes.
+        /// </summary>
         FormFunc formFunc;
+
+        /// <summary>
+        /// This is the basic instruction and error message given out.
+        /// </summary>
+        string textbox1ToolTipText = "Enter text to be translated. " +
+            "Letters, numbers, and the \nsymbols ?, ., and ! allowed." +
+                " Only 39 characters translated.";
+
 
         public Form1()
         {
             InitializeComponent();
-            formFunc = new FormFunc();
             
         }
-        
+
+        private void Form1_Load(object sender, System.EventArgs e)
+        {
+
+            formFunc = new FormFunc();
+
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+
+            toolTip1.SetToolTip(textBox1, textbox1ToolTipText);
+            textBox1.Select();
+        }
+
         void MakeBoxObjects(string Text)
         {
-            //var Files = Directory.GetFiles(@"..\..\Resources");
-
-            //var runeTrans = new List<Box>();
-
-            //foreach (var file in Files)
-            //{
-
-            //    var noext = file.Replace(".png", string.Empty);
-            //    var letter = noext[noext.Length - 1];
-
-            //    runeTrans.Add(new Box()
-            //    {
-            //        picBox = new PictureBox
-            //        {
-            //            ImageLocation = file.ToString(),
-            //        },
-
-            //        symbol = letter,
-            //    });
-            //}      
-
-            //for(int i = 0; i < flowLayoutPanel1.Controls.Count; i++)
-            //{
-            //    var pb = flowLayoutPanel1.Controls[i] as PictureBox;
-            //    pb.ImageLocation = runeTrans[i].picBox.ImageLocation;
-            //}
-
-            //////////////////////////////////////////////////////
-
             var runeTrans = new List<Box>();
 
             foreach (char letter in Text)
@@ -65,109 +59,80 @@ namespace RuneTranslator
                 });
             }
 
-            foreach(var reset in flowLayoutPanel1.Controls)
+            ///This resets the prior display
+            foreach (var reset in flowLayoutPanel1.Controls)
             {
                 var pb = reset as PictureBox;
-                pb.Image = Image.FromFile(@"..\..\Resources\SymbolUnknown.png"); ;
+                pb.Image = Image.FromFile(System.Environment.
+                    CurrentDirectory +
+                        @"\Resources\SymbolUnknown.png");
 
             }
 
-            for (int i = 0; i < flowLayoutPanel1.Controls.Count && i < Text.Length; i++)
+            /// This places the new display in the picture boxes
+            for (int i = 0; i < flowLayoutPanel1.Controls.Count &&
+                i < Text.Length; i++)
             {
                 var pb = flowLayoutPanel1.Controls[i] as PictureBox;
                 pb.Image = runeTrans[i].picBox.Image;
-                
+
             }
+            /// This places in the new confirmed text.
             textBox2.Text = Text;
         }
-        
+
 
 
         private void textBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyData == Keys.Enter)
+            if (e.KeyData == Keys.Enter)
             {
-                //var fullBoxVal = new List<Box>();
-
-                ////////////////////////////////////////////////////////////////////////////////
-
+                foreach (int symbol in textBox1.Text)
+                {
+                    if (symbol == 33 || symbol == 46 || symbol >= 48 &&
+                            symbol <= 57 || symbol == 63 ||
+                                symbol >= 65 && symbol <= 90 ||
+                                    symbol == 95 || symbol >= 97 &&
+                                        symbol <= 122)
+                    {
+                        continue;
+                    }
+                    /// This causes the box to turn red and the reminder 
+                    /// to activate if there are any incorrect symbols
+                    else
+                    {
+                        textBox1.BackColor = Color.OrangeRed;
+                        toolTip1.Show(textbox1ToolTipText, panel1, new Point(25, 25));
+                        textBox1.Select();
+                        return;
+                    }
+                }
+                textBox1.BackColor = Color.White;
                 MakeBoxObjects(textBox1.Text);
+                textBox1.Select();
 
-
-                //int i = 1;
-                //foreach (Boxes Box in fullBoxVal)
-                //{
-                //    Box.value = i;
-                //    i++;
-                //}
-
-                //PictureBox[] pictureBoxes = {pictureBox1, pictureBox2,
-                //    pictureBox3, pictureBox4, pictureBox5, pictureBox6, pictureBox7, 
-                //    pictureBox8,
-                //    pictureBox9, pictureBox10, pictureBox11, pictureBox12, pictureBox13,
-                //    pictureBox14, pictureBox15, pictureBox16, pictureBox17, pictureBox18,
-                //    pictureBox19, pictureBox20, pictureBox21, pictureBox22, pictureBox23,
-                //    pictureBox24, pictureBox25, pictureBox26, pictureBox27, pictureBox28,
-                //    pictureBox29, pictureBox30, pictureBox31, pictureBox32, pictureBox33,
-                //    pictureBox34, pictureBox35, pictureBox36, pictureBox37, pictureBox38,
-                //    pictureBox39};
-                //int j = 1;
-                //foreach (PictureBox picBox in pictureBoxes)
-                //{
-                //    foreach (Boxes box in fullBoxVal)
-                //    {
-                //        if (box.value == j)
-                //        {
-                //            box.pictureBox = picBox;
-                //            j++;
-                //        }
-                //    }
-                //}
-
-                //textBox2.Text = textBox1.Text;
-
-                //var runeSwitch = textBox1.Text.ToString();
-                //int k = 1;
-                //foreach (char symbol in runeSwitch)
-                //{
-                //    foreach (Boxes box in fullBoxVal)
-                //    {
-                //        if (box.value <= 39 && box.value == k)
-                //        {
-                //            box.symbol = symbol;
-                //            k++;
-                //        }
-                //    }
-                //}
-
-
-                //formFunc.CharTranslation(serializer, textBox2, textBox1, fullBoxVal);
-
-                //PictureBox[] arrayImageList = pictureBoxes.ToArray();
-
-                //int l = 1;
-                //foreach (Boxes box in fullBoxVal)
-                //{
-                //    //foreach (PictureBox picBox in pictureBoxes)
-                //    //{
-                //        if (box.value == l)
-                //        {
-                //            arrayImageList[l] = box.pictureBox; 
-                //        }
-                //    //}
-                //}
             }
         }
 
         private void button2_Click(object sender, System.EventArgs e)
         {
             formFunc.Save(textBox1, serializer);
+            textBox1.Select();
         }
 
         private void button1_Click(object sender, System.EventArgs e)
         {
             formFunc.Load(textBox1, serializer);
+            textBox1.Select();
         }
+        
+
+        private void panel1_MouseHover(object sender, 
+            System.EventArgs e)
+        {
+            toolTip1.Show(textbox1ToolTipText, panel1);
+        }
+        
     }
 }
 
@@ -179,4 +144,4 @@ namespace RuneTranslator
 /// Fix symbols from blank to an error message
 /// Create a class for string to become the runes
 /// Create a class for program actions
-///
+/// Add a sort of alert made from a message box (MessageBox.Show("text"))
