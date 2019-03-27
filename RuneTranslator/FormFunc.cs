@@ -36,7 +36,7 @@ namespace RuneTranslator
 
         public void LoadXml (TextBox textBox1, XmlSerializer serializer)
         {
-            try
+            if ((System.IO.File.Exists("RuneMessage.json")))
             {
                 var reader = new System.IO.StreamReader("RuneMessage.xml");
 
@@ -44,9 +44,9 @@ namespace RuneTranslator
 
                 reader.Close();
             }
-            catch
+            else
             {
-                ;
+                return;
             }
         }
 
@@ -84,7 +84,7 @@ namespace RuneTranslator
             //var data = System.IO.File.ReadAllText("RuneMessage.json");
             //textBox1.Text = JsonConvert.DeserializeObject<string>(data);
 
-            try
+            if ((System.IO.File.Exists("RuneMessage.json")))
             {
                 var reader = new System.IO.StreamReader("RuneMessage.json");
 
@@ -99,9 +99,9 @@ namespace RuneTranslator
 
                 reader.Close();
             }
-            catch
+            else
             {
-                ;
+                return;
             }
         }
         //////////////////////////////////////////////

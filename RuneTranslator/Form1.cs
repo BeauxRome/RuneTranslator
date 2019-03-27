@@ -24,7 +24,7 @@ namespace RuneTranslator
         /// <summary>
         /// This is the basic instruction and error message given out.
         /// </summary>
-        string textbox1ToolTipText = "Type text in, then press Enter " +
+        string textbox1ToolTipText = "Type text in, then press Enter "+
             "to have it translated into a selection of runes. Only " +
             "letters, numbers, and the ?, !, ., and _ allowed. Only " +
             "39 characters can be translated at a time.";
@@ -51,6 +51,7 @@ namespace RuneTranslator
 
             toolTip1.SetToolTip(textBox1, textbox1ToolTipText);
             textBox1.Select();
+            
         }
 
         void MakeBoxObjects(string Text)
@@ -154,7 +155,8 @@ namespace RuneTranslator
         }
 
 
-        ///When they hover over the textbox, a message explains allowed text parameters
+        ///When they hover over the textbox, a message explains 
+        ///allowed text parameters
         private void panel1_MouseHover(object sender, 
             System.EventArgs e)
         {
