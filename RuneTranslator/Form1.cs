@@ -12,16 +12,22 @@ namespace RuneTranslator
             new System.Xml.Serialization.
                 XmlSerializer(typeof(string));
         /// <summary>
-        /// This holds most of the Load and save stuff, along with the translation into runes.
+        /// This holds most of the Load and save stuff, along with the 
+        /// translation into runes.
         /// </summary>
         FormFunc formFunc;
 
         /// <summary>
         /// This is the basic instruction and error message given out.
         /// </summary>
-        string textbox1ToolTipText = "Enter text to be translated. " +
-            "Letters, numbers, and the \nsymbols ?, ., and ! allowed." +
-                " Only 39 characters translated.";
+        string textbox1ToolTipText = "Type text in, then press Enter " +
+            "to have it translated into a selection of runes. Only " +
+            "letters, numbers, and the ?, !, ., and _ allowed. Only " +
+            "39 characters can be translated at a time.";
+
+        string errorText = "Only letters, numbers, and the ?, !, ., " +
+            "and _ allowed. Remove any untranslatable characters, " +
+            "and try again.";
 
 
         public Form1()
@@ -95,14 +101,19 @@ namespace RuneTranslator
                                     symbol == 95 || symbol >= 97 &&
                                         symbol <= 122)
                     {
+                        // this is to account for error messages
+                        toolTip1.Hide(textBox1);
+
                         continue;
                     }
-                    /// This causes the box to turn red and the reminder 
-                    /// to activate if there are any incorrect symbols
+                    /// This causes the box to turn red and the 
+                    /// reminder to activate if there are any 
+                    /// incorrect symbols
                     else
                     {
                         textBox1.BackColor = Color.OrangeRed;
-                        toolTip1.Show(textbox1ToolTipText, panel1, new Point(25, 25));
+                        toolTip1.Show(errorText, panel1, new 
+                            Point(25, 25));
                         textBox1.Select();
                         return;
                     }
@@ -144,4 +155,5 @@ namespace RuneTranslator
 /// Fix symbols from blank to an error message
 /// Create a class for string to become the runes
 /// Create a class for program actions
-/// Add a sort of alert made from a message box (MessageBox.Show("text"))
+/// Add a sort of alert made from a message box 
+/// (MessageBox.Show("text"))
