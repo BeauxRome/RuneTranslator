@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace RuneTranslator
 {
     public partial class Form1 : Form
     {
-        System.Xml.Serialization.XmlSerializer serializer =
+        System.Xml.Serialization.XmlSerializer xmlserializer =
             new System.Xml.Serialization.
                 XmlSerializer(typeof(string));
+
+        JsonSerializer jsonserializer = new JsonSerializer();
+
         /// <summary>
         /// This holds most of the Load and save stuff, along with the 
         /// translation into runes.
@@ -125,24 +129,38 @@ namespace RuneTranslator
             }
         }
 
-        private void button2_Click(object sender, System.EventArgs e)
-        {
-            formFunc.Save(textBox1, serializer);
-            textBox1.Select();
-        }
-
         private void button1_Click(object sender, System.EventArgs e)
         {
-            formFunc.Load(textBox1, serializer);
+            formFunc.LoadXml(textBox1, xmlserializer);
             textBox1.Select();
         }
-        
 
+        private void button2_Click(object sender, System.EventArgs e)
+        {
+            formFunc.SaveXml(textBox1, xmlserializer);
+            textBox1.Select();
+        }
+
+        private void button3_Click(object sender, System.EventArgs e)
+        {
+            formFunc.LoadJson(textBox1, jsonserializer);
+            textBox1.Select();
+        }
+
+        private void button4_Click(object sender, System.EventArgs e)
+        {
+            formFunc.SaveJson(textBox1, jsonserializer);
+            textBox1.Select();
+        }
+
+
+        ///When they hover over the textbox, a message explains allowed text parameters
         private void panel1_MouseHover(object sender, 
             System.EventArgs e)
         {
             toolTip1.Show(textbox1ToolTipText, panel1);
         }
+
         
     }
 }

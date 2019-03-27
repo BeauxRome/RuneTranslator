@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.Drawing;
+using Newtonsoft.Json;
 
 namespace RuneTranslator
 {
 
     public class FormFunc
     {
-        public void Save(TextBox textBox1, XmlSerializer serializer)
+        public void SaveXml(TextBox textBox1, XmlSerializer serializer)
         {
 
             if (!(System.IO.File.Exists("RuneMessage.xml")))
@@ -33,7 +34,7 @@ namespace RuneTranslator
             }
         }
 
-        public void Load (TextBox textBox1, XmlSerializer serializer)
+        public void LoadXml (TextBox textBox1, XmlSerializer serializer)
         {
             try
             {
@@ -49,6 +50,60 @@ namespace RuneTranslator
             }
         }
 
+        public void SaveJson(TextBox textBox1, JsonSerializer serializer)
+        {
+
+            //var data = JsonConvert.SerializeObject(textBox1.Text);
+            //System.IO.File.WriteAllText("RuneMessage.json", data);
+
+            if (!(System.IO.File.Exists("RuneMessage.json")))
+            {
+                var newFile = System.IO.File.Create("RuneMessage.json");
+
+                string saveData = textBox1.Text;
+
+                newFile.Close();
+            }
+            else
+            {
+                var writer = new System.IO.StreamWriter("RuneMessage.json");
+
+                var serializeWriter = new JsonSerializer();
+
+                /*serializer.Serialize(writer, );*/
+                serializeWriter.Serialize(writer, textBox1.Text);
+                writer.Close();
+
+
+
+            }
+        }
+
+        public void LoadJson(TextBox textBox1, JsonSerializer serializer)
+        {
+            //var data = System.IO.File.ReadAllText("RuneMessage.json");
+            //textBox1.Text = JsonConvert.DeserializeObject<string>(data);
+
+            try
+            {
+                var reader = new System.IO.StreamReader("RuneMessage.json");
+
+                //Removes first quote and adapts the json to a string
+                var originalText = reader.ReadLine().Remove(0, 1);
+
+                //Removes last quote and sends it to the textbox
+                textBox1.Text = originalText.Remove(originalText.Length - 1, 1);
+
+                var serializeReader = new JsonSerializer();
+                serializeReader.Deserialize(reader, typeof(string));
+
+                reader.Close();
+            }
+            catch
+            {
+                ;
+            }
+        }
         //////////////////////////////////////////////
 
         public Image Translator(char symbol)
