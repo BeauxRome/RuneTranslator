@@ -53,9 +53,6 @@ namespace RuneTranslator
         public void SaveJson(TextBox textBox1, JsonSerializer serializer)
         {
 
-            //var data = JsonConvert.SerializeObject(textBox1.Text);
-            //System.IO.File.WriteAllText("RuneMessage.json", data);
-
             if (!(System.IO.File.Exists("RuneMessage.json")))
             {
                 var newFile = System.IO.File.Create("RuneMessage.json");
@@ -69,8 +66,7 @@ namespace RuneTranslator
                 var writer = new System.IO.StreamWriter("RuneMessage.json");
 
                 var serializeWriter = new JsonSerializer();
-
-                /*serializer.Serialize(writer, );*/
+                
                 serializeWriter.Serialize(writer, textBox1.Text);
                 writer.Close();
 
@@ -81,8 +77,6 @@ namespace RuneTranslator
 
         public void LoadJson(TextBox textBox1, JsonSerializer serializer)
         {
-            //var data = System.IO.File.ReadAllText("RuneMessage.json");
-            //textBox1.Text = JsonConvert.DeserializeObject<string>(data);
 
             if ((System.IO.File.Exists("RuneMessage.json")))
             {

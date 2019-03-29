@@ -22,11 +22,11 @@ namespace RuneTranslator
         FormFunc formFunc;
 
         /// <summary>
-        /// This is the basic instruction and error message given out.
+        /// These are the basic instruction and error message given out.
         /// </summary>
         string textbox1ToolTipText = "Type text in, then press Enter "+
             "to have it translated into a selection of runes. Only " +
-            "letters, numbers, and the ?, !, ., and _ allowed. Only " +
+            "letters, \nnumbers, and the ?, !, ., and _ allowed. Only " +
             "39 characters can be translated at a time.";
 
         string errorText = "Only letters, numbers, and the ?, !, ., " +
@@ -58,6 +58,7 @@ namespace RuneTranslator
         {
             var runeTrans = new List<Box>();
 
+            ///This assigns each character with a rune
             foreach (char letter in Text)
             {
                 runeTrans.Add(new Box()
@@ -100,7 +101,8 @@ namespace RuneTranslator
             {
                 foreach (int symbol in textBox1.Text)
                 {
-                    if (symbol == 33 || symbol == 46 || symbol >= 48 &&
+                    ///checks for incorrect symbols
+                    if (symbol == 32 || symbol == 33 || symbol == 46 || symbol >= 48 &&
                             symbol <= 57 || symbol == 63 ||
                                 symbol >= 65 && symbol <= 90 ||
                                     symbol == 95 || symbol >= 97 &&
@@ -166,14 +168,3 @@ namespace RuneTranslator
         
     }
 }
-
-
-
-/// TODO:
-/// 
-/// Change all rune bindings to loop
-/// Fix symbols from blank to an error message
-/// Create a class for string to become the runes
-/// Create a class for program actions
-/// Add a sort of alert made from a message box 
-/// (MessageBox.Show("text"))

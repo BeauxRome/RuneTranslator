@@ -14,8 +14,6 @@ namespace RuneTranslator
         public PictureBox picBox;
 
         public char symbol;
-
-        public int value;
     }
 
   
