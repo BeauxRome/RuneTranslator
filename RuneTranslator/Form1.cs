@@ -26,11 +26,11 @@ namespace RuneTranslator
         /// </summary>
         string textbox1ToolTipText = "Type text in, then press Enter "+
             "to have it translated into a selection of runes. Only " +
-            "letters, \nnumbers, and the ?, !, ., and _ allowed. Only " +
+            "letters, \nnumbers, and the ?, !, ., _, and space allowed. Only " +
             "39 characters can be translated at a time.";
 
         string errorText = "Only letters, numbers, and the ?, !, ., " +
-            "and _ allowed. Remove any untranslatable characters, " +
+            "_, and space allowed. Remove any untranslatable characters, " +
             "and try again.";
 
 
